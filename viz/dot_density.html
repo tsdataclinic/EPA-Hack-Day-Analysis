@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapbox Tiles</title>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v2.4.1/mapbox-gl.css' rel='stylesheet' />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map-container {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        #legend {
+            background-color: white;
+            padding: 10px;
+            border: 1px solid #aaa;
+            position: absolute;
+            bottom: 100px;
+            left: 300px;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map-container"></div>
+    <div id="legend"></div>
+
+    <script>
+        mapboxgl.accessToken = "pk.eyJ1IjoiY2FueW9uZm9vdCIsImEiOiJjbGw2eG85M3MwcmY5M2xud29mZHVydDBrIn0.nGzozJxSqhZMETPdVsqjbw";
+        const city = "nyc"
+        const raceColors = {
+            "White": "#00a5bd",
+            "Black": "#7a10aa",
+            "Asian": "#fd1e46",
+            "Hispanic": "#f5d855",
+            "Other": "#666666"
+        };
+
+        const map = new mapboxgl.Map({
+            container: 'map-container',
+            style: 'mapbox://styles/mapbox/light-v10',
+            center: [-8.1994, 38.6260], // initial position
+            zoom: 10
+        });
+        map.on('load', function () {
+            // Hide settlement labels
+            map.setLayoutProperty('settlement-label', 'visibility', 'none');
+
+            // Hide point of interest labels
+            map.setLayoutProperty('poi-label', 'visibility', 'none');
+
+            fetch(`../data/viz/${city}/dot_density.geojson`)
+            .then(response => response.json())
+            .then(data => {
+                // Calculate the centroid
+                let totalLat = 0;
+                let totalLng = 0;
+                let count = data.features.length;
+
+                for (let feature of data.features) {
+                    totalLat += feature.geometry.coordinates[1]; // latitude
+                    totalLng += feature.geometry.coordinates[0]; // longitude
+                }
+
+                let avgLat = totalLat / count;
+                let avgLng = totalLng / count;
+
+                // Set map center to the computed centroid
+                map.setCenter([avgLng, avgLat]);
+
+                // Add a new source from our GeoJSON data for the points
+                map.addSource("points", {
+                    type: "geojson",
+                    data: data
+                });
+
+                // Add a new layer to visualize the points
+                map.addLayer({
+                    id: "points",
+                    type: "circle",
+                    source: "points",
+                    paint: {
+                        "circle-radius": {
+                            'base': .5,
+                            'stops': [[12, 1.5], [22, 15]]
+                        },
+                        'circle-color': [
+                            'match',
+                            ['get', 'race'],
+                            'White', raceColors.White,
+                            'Black', raceColors.Black,
+                            'Asian', raceColors.Asian,
+                            'Hispanic/Latino', raceColors.Hispanic,
+                            raceColors.Other // Default color
+                        ]
+                    }
+                });
+
+                generateLegend();
+
+                // Now, fetch and add the polygons
+                return fetch(`../data/viz/${city}/rmp_buffers.geojson`);
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Add a new source from our GeoJSON data for the polygons
+                map.addSource("polygons", {
+                    type: "geojson",
+                    data: data
+                });
+
+                // Add a new layer to visualize the polygons
+                map.addLayer({
+                    id: "polygons",
+                    type: "line",
+                    source: "polygons",
+                    layout: {},
+                    paint: {
+                        "line-color": "#000000",
+                        "line-width": 2
+                    }
+                });
+            });
+        });
+
+        function generateLegend() {
+            const legendContainer = document.getElementById('legend');
+
+            // Create a title for the legend
+            const legendTitle = document.createElement('p');
+            legendTitle.innerText = "Each dot represents \n 100 people";
+            legendTitle.style.fontWeight = 'bold';
+            legendContainer.appendChild(legendTitle);            
+            for (let race in raceColors) {
+                const color = raceColors[race];
+
+                const colorBox = document.createElement('div');
+                colorBox.style.backgroundColor = color;
+                colorBox.style.width = '20px';
+                colorBox.style.height = '20px';
+                colorBox.style.display = 'inline-block';
+                colorBox.style.marginRight = '5px';
+
+                const raceLabel = document.createTextNode(race);
+
+                const legendItem = document.createElement('div');
+                legendItem.appendChild(colorBox);
+                legendItem.appendChild(raceLabel);
+
+                legendContainer.appendChild(legendItem);
+            }
+        }
+    </script>
+
+</body>
+</html>
