@@ -61,7 +61,7 @@
             // Hide point of interest labels
             map.setLayoutProperty('poi-label', 'visibility', 'none');
 
-            fetch(`../data/RMP_facilities.geojson`)
+            fetch(`../viz_data/RMP_facilities.geojson`)
             .then(response => response.json())
             .then(data => {
                 // Calculate the centroid
@@ -111,7 +111,7 @@
                 generateLegend();
 
                 // Now, fetch and add the polygons
-                return fetch(`../data/urban_areas.geojson`);
+                return fetch(`../viz_data/urban_areas.geojson`);
             })
             .then(response => response.json())
             .then(data => {
