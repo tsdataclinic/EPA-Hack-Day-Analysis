@@ -67,8 +67,9 @@ def remove_water_from_tracts(UA_tracts):
 
     return UA_tracts.set_geometry(UA_geom_without_water)
 
-def get_UA_tracts(urban_area_name: str, tracts: gpd.GeoDataFrame, UA_geo: gpd.GeoDataFrame, areal_weight_columns = AREAL_WEIGHT_COLUMNS):
+def get_UA_tracts(urban_area_name: str, tracts: gpd.GeoDataFrame, UA_geo: gpd.GeoDataFrame, areal_weight_columns: list):
     # Intersects census tracts with urban area geometry. Recalculates using weights where overlap is incomplete.
+    tracts["area"] = tracts.area
     UA = UA_geo.query("UA_NAME == @urban_area_name")
     UA_tracts = UA.overlay(tracts, how="intersection", keep_geom_type=False)
     UA_tracts = remove_water_from_tracts(UA_tracts)
@@ -137,49 +138,12 @@ def augment_points_with_labels(points: gpd.GeoDataFrame, prop_df: pd.DataFrame, 
     
     return points_prop
 
-from dataclasses import dataclass
-from geopandas.geodataframe import GeoDataFrame
-
-@dataclass
-class DotDensityConfiguration:
-    city_name: str
-    ppp: int
-    output_dir_prefix: str
-    crs: int
-    
-@dataclass
-class DotDensityRenderOutput:
-    config: DotDensityConfiguration
-    water: GeoDataFrame
-    city_bounds: GeoDataFrame
-    rmp_buffers: GeoDataFrame
-    dot_density: GeoDataFrame
-
-def render_city_data(config: DotDensityConfiguration) -> DotDensityRenderOutput:
-    city = get_UA_tracts(config.city_name, gdf_tract, gdf_urban_all)
-    city_points = create_points_for_city(city, config.ppp)
-    city_race_props = calculate_prop_vectors(city, ["white_pop", "black_pop", "asian_pop", "hispanic_pop"], "total_pop")
-    labels= ["White", "Black", "Asian", "Hispanic/Latino", "Another race"]
-    race_points = augment_points_with_labels(city_points, city_race_props, "race", labels)
-    city_pov_props = calculate_prop_vectors(city, ["pop_in_poverty"], "total_pop")
-    labels = ["Below poverty line", "Above poverty line"]
-    rmp_buffers = get_rmp_zones(city, RMP_facilities, 1)
-    final_points = augment_points_with_labels(race_points, city_pov_props, "poverty", labels)
-    final_points = final_points.set_geometry("geometry").set_crs(2263)
-    water = get_water(city, threshold=10000000)
-    city_bounds = gdf_urban_all[gdf_urban_all["UA_NAME"] == config.city_name]
-    
-    return DotDensityRenderOutput(
-        config=config,
-        water=water.to_crs(config.crs),
-        city_bounds=city_bounds.to_crs(config.crs),
-        rmp_buffers=rmp_buffers.to_crs(config.crs),
-        dot_density=final_points.to_crs(config.crs))
-
-def export_viz_to_json_data(path: pathlib.Path, render_output: DotDensityRenderOutput):
-    full_path = path / render_output.config.output_dir_prefix
-    full_path.mkdir(parents=True, exist_ok=True)
-    render_output.water.to_file(str(full_path / "water.geojson"), DRIVER="json")
-    render_output.city_bounds.to_file(str(full_path / "city_boundaries.geojson"), DRIVER="json")
-    render_output.rmp_buffers.to_file(str(full_path / "rmp_buffers.geojson"), DRIVER="json")
-    render_output.dot_density.to_file(str(full_path / "dot_density.geojson"), DRIVER="json")
+def get_ppp(pop):
+    if pop < 500000:
+        return 25
+    elif pop < 1000000:
+        return 50
+    elif pop < 2000000:
+        return 100
+    else:
+        return 150

@@ -39,7 +39,7 @@
 
     <script>
         mapboxgl.accessToken = "pk.eyJ1IjoiY2FueW9uZm9vdCIsImEiOiJjbGw2eG85M3MwcmY5M2xud29mZHVydDBrIn0.nGzozJxSqhZMETPdVsqjbw";
-        const city = "nyc"
+        const city = "akron";
         const raceColors = {
             "White": "#00a5bd",
             "Black": "#7a10aa",
@@ -54,6 +54,7 @@
             center: [-8.1994, 38.6260], // initial position
             zoom: 10
         });
+
         map.on('load', function () {
             // Hide settlement labels
             map.setLayoutProperty('settlement-label', 'visibility', 'none');
@@ -138,11 +139,22 @@
         function generateLegend() {
             const legendContainer = document.getElementById('legend');
 
-            // Create a title for the legend
-            const legendTitle = document.createElement('p');
-            legendTitle.innerText = "Each dot represents \n 100 people";
-            legendTitle.style.fontWeight = 'bold';
-            legendContainer.appendChild(legendTitle);            
+            // Fetch the value from ppp.csv
+            fetch(`../data/viz/${city}/ppp.csv`)
+            .then(response => response.text())
+            .then(text => {
+                // Parse the CSV and extract the number
+                const lines = text.split('\n');
+                const fields = lines[1].split(','); // Assuming the second line contains the data
+                const numberOfPeople = fields[1].trim(); // Getting the value from the second field
+
+                // Create a title for the legend
+                const legendTitle = document.createElement('p');
+                legendTitle.innerText = "Each dot represents \n" + numberOfPeople + " people";
+                legendTitle.style.fontWeight = 'bold';
+                legendContainer.appendChild(legendTitle);
+            });
+
             for (let race in raceColors) {
                 const color = raceColors[race];
 
