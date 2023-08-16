@@ -30,14 +30,6 @@
     <script>
         mapboxgl.accessToken = "pk.eyJ1IjoiY2FueW9uZm9vdCIsImEiOiJjbGw2eG85M3MwcmY5M2xud29mZHVydDBrIn0.nGzozJxSqhZMETPdVsqjbw";
         const city = "nyc";
-        const raceColors = {
-            "White": "#00a5bd",
-            "Black": "#7a10aa",
-            "Asian": "#fd1e46",
-            "Hispanic": "#f5d855",
-            "Other": "#666666"
-        };
-
         const map = new mapboxgl.Map({
             container: 'map-container',
             style: 'mapbox://styles/mapbox/light-v10',
@@ -80,21 +72,11 @@
                         paint: {
                             "circle-radius": {
                                 'base': 2,
-                                'stops': [[6, 2], [12, 10]]
+                                'stops': [[6, 4], [12, 10]]
                             },
-                            'circle-color': [
-                                'match',
-                                ['get', 'race'],
-                                'White', raceColors.White,
-                                'Black', raceColors.Black,
-                                'Asian', raceColors.Asian,
-                                'Hispanic/Latino', raceColors.Hispanic,
-                                raceColors.Other
-                            ]
+                            'circle-color': "#fd1e46"
                         }
                     });
-
-                    generateLegend();
 
                     return fetch(`../viz_data/urban_areas.geojson`);
                 })
@@ -140,28 +122,6 @@
                 }
             });
         });
-
-        function generateLegend() {
-            const legendContainer = document.getElementById('legend');
-            const legendTitle = document.createElement('p');
-            legendTitle.innerText = "Each dot represents \n 100 people";
-            legendTitle.style.fontWeight = 'bold';
-            legendContainer.appendChild(legendTitle);
-            for (let race in raceColors) {
-                const color = raceColors[race];
-                const colorBox = document.createElement('div');
-                colorBox.style.backgroundColor = color;
-                colorBox.style.width = '20px';
-                colorBox.style.height = '20px';
-                colorBox.style.display = 'inline-block';
-                colorBox.style.marginRight = '5px';
-                const raceLabel = document.createTextNode(race);
-                const legendItem = document.createElement('div');
-                legendItem.appendChild(colorBox);
-                legendItem.appendChild(raceLabel);
-                legendContainer.appendChild(legendItem);
-            }
-        }
     </script>
 </body>
 </html>
