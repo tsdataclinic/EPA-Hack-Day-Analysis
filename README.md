@@ -11,7 +11,19 @@ TODO -> Describe Hack day, the Data Clinic's role, brief description of the arti
 
 This repository generates some of the statistics and visualizations included in this article TODO -> add link when it exists
 
-To reproduce our analysis, install the dependencies listed in `requirements.txt`.
+#### Installations
+Make sure you have Python 3.9 or above. You can check in the command line with python --version or python3 --version
+
+To create a virtual environment within this head directory `cd EPA-HACK-DAY-ANALYSIS`, run `python3 -m venv venv`. The second "venv" can be any name of your virtual environment.
+
+Run the following to activate virtual environment to use and disable to stop using:
+
+bash (Mac OS, Linux): source venv/bin/activate
+win (windows): venv\Scripts\activate.bat or venv\Scripts\activate.ps1 for powershell
+
+`deactivate` will deactivate your virtual env
+
+Once your environment is activated, run `python3 -m pip install -r requirements.txt`.
 
 ### Open Data Files
 
