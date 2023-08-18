@@ -42,6 +42,8 @@ Running this pipeline will generate several data assets.
 
     building-emissions/
     ├── LICENSE
+    ├── Makefile                      
+    ├── requirements.txt
     ├── README.md                     <- The top-level README for developers using this project
     │
     ├── data                          
@@ -57,14 +59,18 @@ Running this pipeline will generate several data assets.
         ├── [city]                        <- Sub-directories for each city containing data needed for dot density map
     ├── src
       ├── data
-        ├── preprocess_RMP.py            <- Fenceline-to-city ratios for each city
-        ├── clean_RMP.py                 <- Cleaned and processed version of the RMP facilities dataset
-        ├── download_census.py           <- Block group level American Community Survey data
+        ├── preprocess_RMP.py            <- Basic preprocessing 
+        ├── clean_RMP.py                 <- Cleaning and filling missing locations
+        ├── download_census.py           <- Downloads American Community Survey data with censusdis
      ├── analysis
-        ├── interpolate_census.py        <- Fenceline-to-city ratios for each city
-        ├── national_map.py              <- Cleaned and processed version of the RMP facilities dataset
-        ├── city_dot_density.py          <- Block group level American Community Survey data
- 
+        ├── interpolate_census.py        <- Calculates fenceline-to-city ratios for each city
+        ├── national_map.py              <- Creates data for interactive national map
+        ├── city_dot_density.py          <- Creates data for dot-density maps
+     ├── viz
+        ├── dot_density.html             <- D3 visualization for dot-desnity maps
+        ├── viz_data                     <- Folder with files for national facility map
+        ├── facility_location
+          ├── index.html                 <- D3 national map visualization
     ├── notebooks
         ├── ridgeplot.ipynb       <- Creates ridgeplot for blog
 
