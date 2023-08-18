@@ -45,20 +45,25 @@ Running this pipeline will generate several data assets.
     ├── README.md                     <- The top-level README for developers using this project
     │
     ├── data                          
-      ├── raw                       <- Folder files provided [here](https://github.com/data-liberation-project/epa-rmp-spreadsheets/tree/main/data/output) - you must add these yourself
-        ├── submissions.csv       <- RMP submissions records
-        ├── facilities.csv        <- RMP facility information
-        ├── naics-codes.csv       <- Industry code mapping
-      ├── processed                 <- Once the pipeline is run, this folder will be populated
+      ├── raw                         <- You must add these yourself
+        ├── submissions.csv               <- RMP submissions records
+        ├── facilities.csv                <- RMP facility information
+        ├── naics-codes.csv               <- Industry code mapping
+      ├── processed
         ├── urban_area_statistics.csv     <- Fenceline-to-city ratios for each city
         ├── facilities_geo.geojson        <- Cleaned and processed version of the RMP facilities dataset
         ├── US_bg_census.geojson          <- Block group level American Community Survey data
-
+      ├── viz
+        ├── [city]                        <- Sub-directories for each city containing data needed for dot density map
     ├── src
-        ├── areal_interpolation.py    <- Utility functions used to calculate the demographics of each community district
-        ├── get_census.py             <- Script to download census data and create community district estimates
-        ├── get_census_geo.py         <- Script to download required census shapefiles
-        ├── Neighborhood_scores.ipynb <- Notebook to create CD_building_info.csv and buildings_CD.csv
+      ├── data
+        ├── preprocess_RMP.py            <- Fenceline-to-city ratios for each city
+        ├── clean_RMP.py                 <- Cleaned and processed version of the RMP facilities dataset
+        ├── download_census.py           <- Block group level American Community Survey data
+     ├── analysis
+        ├── interpolate_census.py        <- Fenceline-to-city ratios for each city
+        ├── national_map.py              <- Cleaned and processed version of the RMP facilities dataset
+        ├── city_dot_density.py          <- Block group level American Community Survey data
  
     ├── notebooks
         ├── ridgeplot.ipynb       <- Creates ridgeplot for blog
