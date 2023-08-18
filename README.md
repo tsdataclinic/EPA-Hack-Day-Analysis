@@ -4,12 +4,17 @@
 
 # Name of Article
 
-TODO -> ADD SCREENSHOT OF A DOT DENSITY PLOT
+<p align="center">
+  <img src="public/images/saint_louis.png" width="400"/>
+</p>
+
+This repository is the result of a [Hack Day](https://www.twosigma.com/articles/hacking-with-data-clinic/) Data Clinic hosted in the spring of 2023. The topic of the Hack Day was the EPA's database of Risk Management Program facilities, recently made easy to access by the [Data Liberation Project](https://www.data-liberation-project.org/). We chose to focus on understanding how the demographics of areas close to one of the facilities differ from the demographics of cities overall.
+
 TODO -> Describe Hack day, the Data Clinic's role, brief description of the articles purpose and the main hypotheses you explored (super brief)
 
 ### Getting started
 
-This repository generates some of the statistics and visualizations included in this article TODO -> add link when it exists
+This repository generates the statistics and visualizations included in this article TODO -> add link when it exists
 
 #### Installations
 Make sure you have Python 3.9 or above. You can check in the command line with python --version or python3 --version
@@ -83,8 +88,6 @@ Once the pipeline has run and `data/viz/` has been populated, you can view dot d
 3.  Open `http://localhost:8000/viz/dot_density.html` in your web browser.
 
 You should see an interactive dot-density map marking the fenceline zone in your chosen city.
-
-
 
 ### Data Clinic
 [Data Clinic](https://www.twosigma.com/data-clinic/) is the data and tech-for-good arm of [Two Sigma](https://twosigma.com), a financial sciences company headquartered in NYC. Since Data Clinic was founded in 2014, we have provided pro bono data science and engineering support to mission-driven organizations around the world via close partnerships that pair Two Sigma's talent and way of thinking with our partner's rich content-area expertise. To scale the solutions and insights Data Clinic has gathered over the years, and to contribute to the democratization of data, we also engage in the development of open source tooling and data products.
