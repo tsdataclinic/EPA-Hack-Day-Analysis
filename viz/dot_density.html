@@ -36,9 +36,7 @@
 <body>
     <div id="map-container"></div>
     <div id="legend"></div>
-
     <script>
-        mapboxgl.accessToken = "pk.eyJ1IjoiY2FueW9uZm9vdCIsImEiOiJjbGw2eG85M3MwcmY5M2xud29mZHVydDBrIn0.nGzozJxSqhZMETPdVsqjbw";
         const city = "akron";
         const raceColors = {
             "White": "#00a5bd",
@@ -47,7 +45,7 @@
             "Hispanic": "#f5d855",
             "Other": "#666666"
         };
-
+        mapboxgl.accessToken = "pk.eyJ1IjoiY2FueW9uZm9vdCIsImEiOiJjbGw2eG85M3MwcmY5M2xud29mZHVydDBrIn0.nGzozJxSqhZMETPdVsqjbw";
         const map = new mapboxgl.Map({
             container: 'map-container',
             style: 'mapbox://styles/mapbox/light-v10',

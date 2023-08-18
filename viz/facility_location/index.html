@@ -33,8 +33,8 @@
         const map = new mapboxgl.Map({
             container: 'map-container',
             style: 'mapbox://styles/mapbox/light-v10',
-            center: [-8.1994, 38.6260],
-            zoom: 5
+            center: [-96.1994, 38.6260],
+            zoom: 4
         });
 
         let currentPopup = null;
@@ -47,19 +47,6 @@
             fetch(`../viz_data/RMP_facilities.geojson`)
                 .then(response => response.json())
                 .then(data => {
-                    let totalLat = 0;
-                    let totalLng = 0;
-                    let count = data.features.length;
-
-                    for (let feature of data.features) {
-                        totalLat += feature.geometry.coordinates[1];
-                        totalLng += feature.geometry.coordinates[0];
-                    }
-
-                    let avgLat = totalLat / count;
-                    let avgLng = totalLng / count;
-                    map.setCenter([avgLng, avgLat]);
-
                     map.addSource("points", {
                         type: "geojson",
                         data: data
