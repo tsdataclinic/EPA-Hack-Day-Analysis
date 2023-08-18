@@ -40,28 +40,28 @@ Running this pipeline will generate several data assets.
 
 ### Directory Structure
 
-building-emissions/
-├── LICENSE
-├── README.md                     <- The top-level README for developers using this project
-│
-├── data                          
-    ├── raw                       <- Folder files provided [here](https://github.com/data-liberation-project/epa-rmp-spreadsheets/tree/main/data/output) - you must add these yourself
+    building-emissions/
+    ├── LICENSE
+    ├── README.md                     <- The top-level README for developers using this project
+    │
+    ├── data                          
+      ├── raw                       <- Folder files provided [here](https://github.com/data-liberation-project/epa-rmp-spreadsheets/tree/main/data/output) - you must add these yourself
         ├── submissions.csv       <- RMP submissions records
         ├── facilities.csv        <- RMP facility information
         ├── naics-codes.csv       <- Industry code mapping
-    ├── processed                 <- Once the pipeline is run, this folder will be populated
+      ├── processed                 <- Once the pipeline is run, this folder will be populated
         ├── urban_area_statistics.csv     <- Fenceline-to-city ratios for each city
         ├── facilities_geo.geojson        <- Cleaned and processed version of the RMP facilities dataset
         ├── US_bg_census.geojson          <- Block group level American Community Survey data
 
-├── src
-    ├── areal_interpolation.py    <- Utility functions used to calculate the demographics of each community district
-    ├── get_census.py             <- Script to download census data and create community district estimates
-    ├── get_census_geo.py         <- Script to download required census shapefiles
-    ├── Neighborhood_scores.ipynb <- Notebook to create CD_building_info.csv and buildings_CD.csv
+    ├── src
+        ├── areal_interpolation.py    <- Utility functions used to calculate the demographics of each community district
+        ├── get_census.py             <- Script to download census data and create community district estimates
+        ├── get_census_geo.py         <- Script to download required census shapefiles
+        ├── Neighborhood_scores.ipynb <- Notebook to create CD_building_info.csv and buildings_CD.csv
  
-├── notebooks
-    ├── blog_figures.ipynb       <- Notebook with final data processing and figures
+    ├── notebooks
+        ├── ridgeplot.ipynb       <- Creates ridgeplot for blog
 
 ### Instructions for generating dot-density maps for any city
 
