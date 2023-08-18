@@ -5,7 +5,7 @@
 # Name of Article
 
 <p align="center">
-  <img src="public/images/saint_louis.png" width="700"/>
+  <img src="public/images/saint_louis.png" width="1000"/>
 </p>
 
 This repository is the result of a [Hack Day](https://www.twosigma.com/articles/hacking-with-data-clinic/) Data Clinic hosted in the spring of 2023. The topic of the Hack Day was the EPA's database of Risk Management Program facilities, recently made easy to access by the [Data Liberation Project](https://www.data-liberation-project.org/). We chose to focus on understanding how the demographics of areas close to one of the facilities differ from the demographics of cities overall.
