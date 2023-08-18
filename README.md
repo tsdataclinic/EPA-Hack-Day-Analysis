@@ -2,7 +2,7 @@
   <img src="public/images/site-logo.png" width="400"/>
 </p>
 
-# Name of Article
+# Hazards at Home: An Analysis of EPA Risk Management Program facility locations
 
 <p align="center">
   <img src="public/images/saint_louis.png" width="1000"/>
