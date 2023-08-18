@@ -12,7 +12,7 @@ This repository is the result of a [Hack Day](https://www.twosigma.com/articles/
 
 ### Getting started
 
-This repository generates the statistics and visualizations included in this article TODO -> add link when it exists
+This repository generates the statistics and visualizations included in this [article](twosigma.com/articles/hazards-at-home)
 
 #### Installations
 Make sure you have Python 3.9 or above. You can check in the command line with python --version or python3 --version
