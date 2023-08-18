@@ -8,9 +8,7 @@
   <img src="public/images/saint_louis.png" width="1000"/>
 </p>
 
-This repository is the result of a [Hack Day](https://www.twosigma.com/articles/hacking-with-data-clinic/) Data Clinic hosted in the spring of 2023. The topic of the Hack Day was the EPA's database of Risk Management Program facilities, recently made easy to access by the [Data Liberation Project](https://www.data-liberation-project.org/). We chose to focus on understanding how the demographics of areas close to one of the facilities differ from the demographics of cities overall.
-
-TODO -> Describe Hack day, the Data Clinic's role, brief description of the articles purpose and the main hypotheses you explored (super brief)
+This repository is the result of a [Hack Day](https://www.twosigma.com/articles/hacking-with-data-clinic/) Data Clinic hosted in the spring of 2023. The topic of the Hack Day was the EPA's database of Risk Management Program facilities, recently made easy to access by the [Data Liberation Project](https://www.data-liberation-project.org/). We chose to focus on understanding how the demographics of areas close to one of the facilities differ from the demographics of cities overall and displaying these patterns using dot-desnity maps. 
 
 ### Getting started
 
