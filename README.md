@@ -8,7 +8,7 @@
   <img src="public/images/saint_louis.png" width="1000"/>
 </p>
 
-This repository is the result of a [Hack Day](https://www.twosigma.com/articles/hacking-with-data-clinic/) Data Clinic hosted in the spring of 2023. The topic of the Hack Day was the EPA's database of Risk Management Program facilities, recently made easy to access by the [Data Liberation Project](https://www.data-liberation-project.org/). We chose to focus on understanding how the demographics of areas close to one of the facilities differ from the demographics of cities overall and displaying these patterns using dot-desnity maps. 
+This repository is the result of a [Hack Day](https://www.twosigma.com/articles/hacking-with-data-clinic/) Data Clinic hosted in the spring of 2023. The topic of the Hack Day was the EPA's database of Risk Management Program facilities, recently made easy to access by the [Data Liberation Project](https://www.data-liberation-project.org/). We chose to focus on understanding how the demographics of areas close to one of the facilities differ from the demographics of cities overall and displaying these patterns using dot-density maps. 
 
 ### Getting started
 
@@ -39,7 +39,7 @@ Running this pipeline will generate several data assets.
 -  `data/processed/facilities_geo.geojson` contains a cleaned and processed version of the RMP facilities dataset
 - `data/processed/US_bg_census.geojson` contains block group level American Community Survey data for the entire US
 -  `data/processed/urban_area_statistics.csv` contains the fenceline-to-city ratios for each city across our set of census metrics.
--  The folder `data/viz/` will contain sub-directories for each of the cities in our analysis. Inside these directories are the data files needed to produce the dot-density maps we include in the blog post.
+-  The folder `data/viz/` will contain subdirectories for each of the cities in our analysis. Inside these directories are the data files needed to produce the dot-density maps we include in the blog post.
 
 ### Directory Structure
 
@@ -59,7 +59,7 @@ Running this pipeline will generate several data assets.
         ├── facilities_geo.geojson        <- Cleaned and processed version of the RMP facilities dataset
         ├── US_bg_census.geojson          <- Block group level American Community Survey data
       ├── viz
-        ├── [city]                        <- Sub-directories for each city containing data needed for dot density map
+        ├── [city]                        <- Subdirectories for each city containing data needed for dot density map
     ├── src
       ├── data
         ├── preprocess_RMP.py            <- Basic preprocessing 
@@ -81,7 +81,7 @@ Running this pipeline will generate several data assets.
 
 Once the pipeline has run and `data/viz/` has been populated, you can view dot density maps for any city by following these steps:
 
-1.  Naviagate to `viz/dot_denisty.html` and replace the city defined in line 40 with the name of the `data/viz/` folder for the city you want to look at (e.g. `batonrouge` for Baton Rouge).
+1.  Navigate to `viz/dot_denisty.html` and replace the city defined in line 40 with the name of the `data/viz/` folder for the city you want to look at (e.g. `batonrouge` for Baton Rouge).
 2.  Run `python -m http.server 8000` from the project home directory
 3.  Open `http://localhost:8000/viz/dot_density.html` in your web browser.
 
